@@ -1,18 +1,32 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Menu, Moon, Sun, X } from 'lucide-react'
+import { Check, Menu, Moon, Palette, Sun, X } from 'lucide-react'
 import { nav } from '../data/site'
+import { palettes } from '../data/themes'
 import type { Theme } from '../hooks/useTheme'
 
 interface NavbarProps {
   theme: Theme
   toggleTheme: () => void
+  palette: string
+  setPalette: (id: string) => void
 }
 
-export default function Navbar({ theme, toggleTheme }: NavbarProps) {
+export default function Navbar({ theme, toggleTheme, palette, setPalette }: NavbarProps) {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [paletteOpen, setPaletteOpen] = useState(false)
+  const paletteRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!paletteOpen) return
+    const close = (e: MouseEvent) => {
+      if (paletteRef.current && !paletteRef.current.contains(e.target as Node)) setPaletteOpen(false)
+    }
+    document.addEventListener('mousedown', close)
+    return () => document.removeEventListener('mousedown', close)
+  }, [paletteOpen])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -61,6 +75,67 @@ export default function Navbar({ theme, toggleTheme }: NavbarProps) {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Theme palette picker */}
+          <div className="relative" ref={paletteRef}>
+            <button
+              onClick={() => setPaletteOpen(!paletteOpen)}
+              aria-label="Choose color theme"
+              aria-expanded={paletteOpen}
+              className={`rounded-full p-2 transition-colors ${
+                overDark
+                  ? 'text-white hover:bg-white/10'
+                  : 'text-primary hover:bg-primary/10 dark:text-slate-200 dark:hover:bg-white/10'
+              }`}
+            >
+              <Palette className="h-5 w-5" />
+            </button>
+            <AnimatePresence>
+              {paletteOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                  transition={{ duration: 0.18 }}
+                  className="absolute right-0 top-full mt-3 w-60 overflow-hidden rounded-2xl border border-primary/10 bg-white p-2 shadow-2xl shadow-primary/15 dark:border-white/10 dark:bg-primary-800"
+                >
+                  <p className="px-3 pb-1 pt-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    Color Theme
+                  </p>
+                  {palettes.map((p) => (
+                    <button
+                      key={p.id}
+                      onClick={() => {
+                        setPalette(p.id)
+                        setPaletteOpen(false)
+                      }}
+                      className="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-colors hover:bg-primary/5 dark:hover:bg-white/5"
+                    >
+                      <span className="flex shrink-0 -space-x-1.5">
+                        <span
+                          className="h-5 w-5 rounded-full border-2 border-white dark:border-primary-800"
+                          style={{ background: p.swatch[0] }}
+                        />
+                        <span
+                          className="h-5 w-5 rounded-full border-2 border-white dark:border-primary-800"
+                          style={{ background: p.swatch[1] }}
+                        />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-medium text-primary dark:text-white">
+                          {p.label}
+                        </span>
+                        <span className="block truncate text-xs text-slate-500 dark:text-slate-400">
+                          {p.description}
+                        </span>
+                      </span>
+                      {palette === p.id && <Check className="h-4 w-4 shrink-0 text-accent" />}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           <button
             onClick={toggleTheme}
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}

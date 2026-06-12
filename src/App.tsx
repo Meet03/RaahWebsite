@@ -24,12 +24,12 @@ function PageLoader() {
 }
 
 export default function App() {
-  const { theme, toggleTheme } = useTheme()
+  const { theme, toggleTheme, palette, setPalette } = useTheme()
 
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar theme={theme} toggleTheme={toggleTheme} palette={palette} setPalette={setPalette} />
       <main className="flex-1">
         <Suspense fallback={<PageLoader />}>
           <Routes>

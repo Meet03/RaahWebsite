@@ -17,6 +17,8 @@
         if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.classList.add('dark')
         }
+        var p = localStorage.getItem('palette')
+        if (p) document.documentElement.setAttribute('data-palette', p)
       } catch (e) {}
     </script>
   </head>

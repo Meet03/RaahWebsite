@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Award, Globe2, ShieldCheck, Sparkles } from 'lucide-react'
 import Icon from '../components/Icon'
+import IdentityNetwork from '../components/IdentityNetwork'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
 import { services } from '../data/services'
@@ -25,6 +26,7 @@ export default function Home() {
         <div className="pointer-events-none absolute -top-32 -right-32 h-96 w-96 rounded-full bg-accent/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-40 -left-20 h-96 w-96 rounded-full bg-primary-400/20 blur-3xl" />
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.07)_1px,transparent_0)] [background-size:32px_32px]" />
+        <IdentityNetwork className="absolute inset-0 h-full w-full opacity-70" />
 
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">

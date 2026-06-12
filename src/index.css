@@ -33,6 +33,60 @@
   --color-ink: #040014;
 }
 
+/* ---- Theme palettes (picker in navbar) ----
+   Tailwind v4 utilities reference these CSS variables, so overriding them
+   re-skins the whole site at runtime. 'classic' is the default from @theme. */
+
+html[data-palette='cyber'] {
+  --color-primary: #062a4a;
+  --color-primary-50: #e6f6ff;
+  --color-primary-100: #c4eaff;
+  --color-primary-200: #8fd6ff;
+  --color-primary-300: #4fbfff;
+  --color-primary-400: #14a4f5;
+  --color-primary-500: #0b6fb0;
+  --color-primary-600: #084a78;
+  --color-primary-700: #062a4a;
+  --color-primary-800: #04192e;
+  --color-primary-900: #020c18;
+
+  --color-accent: #00b3d6;
+  --color-accent-50: #e8fcff;
+  --color-accent-100: #c9f6ff;
+  --color-accent-200: #9defff;
+  --color-accent-300: #5ce6ff;
+  --color-accent-400: #00d9ff;
+  --color-accent-500: #00b3d6;
+  --color-accent-600: #008aa8;
+
+  --color-ink: #020c14;
+}
+
+html[data-palette='aurora'] {
+  --color-primary: #2b0a52;
+  --color-primary-50: #f3ecff;
+  --color-primary-100: #e2d4ff;
+  --color-primary-200: #c5a9ff;
+  --color-primary-300: #a47aff;
+  --color-primary-400: #7c4ce0;
+  --color-primary-500: #4f2a9e;
+  --color-primary-600: #3a1a78;
+  --color-primary-700: #2b0a52;
+  --color-primary-800: #1d0638;
+  --color-primary-900: #0b0118;
+
+  --color-accent: #d22b70;
+  --color-accent-50: #fef0f6;
+  --color-accent-100: #fdd0e2;
+  --color-accent-200: #f9a3c6;
+  --color-accent-300: #f26da4;
+  --color-accent-400: #e93d82;
+  --color-accent-500: #d22b70;
+  --color-accent-600: #aa2059;
+
+  --color-ink: #0b0118;
+}
+
 html {
   scroll-behavior: smooth;
 }
