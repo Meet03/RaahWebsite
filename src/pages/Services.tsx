@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import EngagementTimeline from '../components/EngagementTimeline'
 import Icon from '../components/Icon'
 import PageHero from '../components/PageHero'
 import Reveal from '../components/Reveal'
+import SectionHeading from '../components/SectionHeading'
 import { services } from '../data/services'
 
 export default function Services() {
@@ -53,6 +55,17 @@ export default function Services() {
               </div>
             </Reveal>
           ))}
+        </div>
+      </section>
+
+      <section className="bg-primary-50/60 py-24 dark:bg-primary-800/30">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="How We Engage"
+            title="From first workshop to steady state"
+            subtitle="A proven path that meets you wherever you are in your identity journey."
+          />
+          <EngagementTimeline />
         </div>
       </section>
     </>

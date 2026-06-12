@@ -31,6 +31,35 @@
   --color-accent-600: #b53f03;
 
   --color-ink: #040014;
+
+  --animate-marquee: marquee 35s linear infinite;
+  --animate-orbit: orbit 36s linear infinite;
+  --animate-orbit-item: orbit-item 36s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes orbit {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Counter-rotation that keeps orbiting satellites upright (--a = start angle) */
+  @keyframes orbit-item {
+    from {
+      transform: rotate(calc(-1 * var(--a)));
+    }
+    to {
+      transform: rotate(calc(-1 * var(--a) - 360deg));
+    }
+  }
 }
 
 /* ---- Theme palettes (picker in navbar) ----

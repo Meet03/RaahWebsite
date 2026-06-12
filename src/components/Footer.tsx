@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Mail, Phone } from 'lucide-react'
+import { Award, BadgeCheck, Layers, Mail, Phone } from 'lucide-react'
 
 function LinkedinIcon({ className }: { className?: string }) {
   return (
@@ -33,7 +33,7 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <img src="/logo-white.png" alt="RAAH Technologies" className="h-10 w-auto" width={178} height={40} />
+            <img src="/logo-white.png" alt="RAAH Technologies" className="h-12 w-auto" width={135} height={48} />
             <p className="mt-4 text-sm leading-relaxed text-slate-400">{site.tagline}</p>
             <div className="mt-6 flex gap-3">
               <a
@@ -118,7 +118,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-3">
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-slate-300">
+            <Award className="h-4 w-4 text-accent" /> Okta AMER SI Partner of the Year 2024
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-slate-300">
+            <BadgeCheck className="h-4 w-4 text-accent" /> 50+ certified identity experts
+          </span>
+          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-medium text-slate-300">
+            <Layers className="h-4 w-4 text-accent" /> 11 platform partnerships
+          </span>
+        </div>
+
+        <div className="mt-8 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 sm:flex-row">
           <p className="text-xs text-slate-500">
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>

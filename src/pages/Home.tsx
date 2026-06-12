@@ -1,20 +1,27 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowRight, Award, Globe2, ShieldCheck, Sparkles } from 'lucide-react'
+import CountUp from '../components/CountUp'
+import EngagementTimeline from '../components/EngagementTimeline'
+import FlipCard from '../components/FlipCard'
+import HeroCards from '../components/HeroCards'
 import Icon from '../components/Icon'
 import IdentityNetwork from '../components/IdentityNetwork'
+import LogoMarquee from '../components/LogoMarquee'
 import Reveal from '../components/Reveal'
 import SectionHeading from '../components/SectionHeading'
+import TestimonialSlider from '../components/TestimonialSlider'
+import TiltCard from '../components/TiltCard'
 import { services } from '../data/services'
 import { solutions } from '../data/solutions'
 import { industries } from '../data/industries'
 import { platforms } from '../data/platforms'
 
 const stats = [
-  { label: 'Identity Projects Delivered', value: '200+' },
-  { label: 'Certified Identity Experts', value: '50+' },
-  { label: 'Platform Partnerships', value: '11' },
-  { label: 'Industries Served', value: '10+' },
+  { label: 'Identity Projects Delivered', value: 200, suffix: '+' },
+  { label: 'Certified Identity Experts', value: 50, suffix: '+' },
+  { label: 'Platform Partnerships', value: 11, suffix: '' },
+  { label: 'Industries Served', value: 10, suffix: '+' },
 ]
 
 export default function Home() {
@@ -28,7 +35,7 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.07)_1px,transparent_0)] [background-size:32px_32px]" />
         <IdentityNetwork className="absolute inset-0 h-full w-full opacity-70" />
 
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.1fr_1fr] lg:px-8">
           <div className="max-w-3xl">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -83,6 +90,8 @@ export default function Home() {
               </Link>
             </motion.div>
           </div>
+
+          <HeroCards />
         </div>
       </section>
 
@@ -91,7 +100,9 @@ export default function Home() {
         <Reveal className="mx-auto grid max-w-5xl grid-cols-2 gap-px overflow-hidden rounded-2xl bg-primary/10 shadow-2xl shadow-primary/10 backdrop-blur dark:bg-white/10 md:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="bg-white p-6 text-center dark:bg-primary-800">
-              <div className="text-3xl font-bold text-accent">{s.value}</div>
+              <div className="text-3xl font-bold text-accent">
+                <CountUp value={s.value} suffix={s.suffix} />
+              </div>
               <div className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-500 dark:text-slate-400">
                 {s.label}
               </div>
@@ -100,8 +111,11 @@ export default function Home() {
         </Reveal>
       </section>
 
+      {/* Partner marquee */}
+      <LogoMarquee />
+
       {/* Services */}
-      <section className="py-24">
+      <section className="pb-24 pt-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="What We Do"
@@ -110,28 +124,42 @@ export default function Home() {
           />
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((s, i) => (
-              <Reveal key={s.slug} delay={i * 0.08}>
-                <Link
-                  to={`/services#${s.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-primary/10 bg-white p-7 shadow-sm transition-all hover:-translate-y-1.5 hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10 dark:border-white/10 dark:bg-primary-800/60"
-                >
+              <Reveal key={s.slug} delay={i * 0.08} className="h-full">
+                <TiltCard className="h-full">
+                  <Link
+                    to={`/services#${s.slug}`}
+                    className="group flex h-full flex-col rounded-2xl border border-primary/10 bg-white p-7 shadow-sm transition-all hover:border-accent/40 hover:shadow-xl hover:shadow-accent/10 dark:border-white/10 dark:bg-primary-800/60"
+                  >
                   <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
                     <Icon name={s.icon} className="h-6 w-6" />
                   </div>
                   <h3 className="text-lg font-semibold text-primary dark:text-white">{s.title}</h3>
                   <p className="mt-2 flex-1 text-sm text-slate-600 dark:text-slate-400">{s.summary}</p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
-                    Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </span>
-                </Link>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent">
+                      Learn more <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </Link>
+                </TiltCard>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Solutions */}
+      {/* How we engage */}
       <section className="bg-primary-50/60 py-24 dark:bg-primary-800/30">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="How We Engage"
+            title="From first workshop to steady state"
+            subtitle="A proven path that meets you wherever you are in your identity journey."
+          />
+          <EngagementTimeline />
+        </div>
+      </section>
+
+      {/* Solutions */}
+      <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Solutions"
@@ -140,29 +168,54 @@ export default function Home() {
           />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {solutions.map((s, i) => (
-              <Reveal key={s.slug} delay={i * 0.06}>
-                <Link
-                  to={`/solutions#${s.slug}`}
-                  className="group flex h-full flex-col rounded-2xl bg-white p-7 shadow-sm transition-all hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/10 dark:bg-primary-800/70"
-                >
-                  <div className="mb-4 flex items-center gap-3">
-                    <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/8 text-primary dark:bg-white/10 dark:text-accent">
-                      <Icon name={s.icon} className="h-5 w-5" />
-                    </span>
-                    <h3 className="font-semibold text-primary group-hover:text-accent dark:text-white">
-                      {s.title}
-                    </h3>
-                  </div>
-                  <p className="text-sm text-slate-600 dark:text-slate-400">{s.summary}</p>
-                </Link>
+              <Reveal key={s.slug} delay={i * 0.06} className="h-full">
+                <FlipCard
+                  delay={i * 2200}
+                  className="h-full"
+                  front={
+                    <Link
+                      to={`/solutions#${s.slug}`}
+                      className="group flex h-full flex-col rounded-2xl bg-white p-7 shadow-sm transition-shadow hover:shadow-xl hover:shadow-primary/10 dark:bg-primary-800/70"
+                    >
+                      <div className="mb-4 flex items-center gap-3">
+                        <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/8 text-primary dark:bg-white/10 dark:text-accent">
+                          <Icon name={s.icon} className="h-5 w-5" />
+                        </span>
+                        <h3 className="font-semibold text-primary group-hover:text-accent dark:text-white">
+                          {s.title}
+                        </h3>
+                      </div>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">{s.summary}</p>
+                    </Link>
+                  }
+                  back={
+                    <div className="flex h-full flex-col rounded-2xl bg-gradient-to-br from-primary to-primary-800 p-7 text-white">
+                      <h3 className="font-semibold">{s.title}</h3>
+                      <ul className="mt-4 flex-1 space-y-2.5">
+                        {s.capabilities.map((c) => (
+                          <li key={c.text} className="flex items-start gap-2.5 text-xs text-slate-300">
+                            <Icon name={c.icon} className="h-4 w-4 shrink-0 text-accent" />
+                            {c.text}
+                          </li>
+                        ))}
+                      </ul>
+                      <Link
+                        to={`/solutions#${s.slug}`}
+                        className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:underline"
+                      >
+                        Explore <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </div>
+                  }
+                />
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Industries marquee-style grid */}
-      <section className="py-24">
+      {/* Industries grid */}
+      <section className="bg-primary-50/60 py-24 dark:bg-primary-800/30">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <SectionHeading
             eyebrow="Industries"
@@ -244,18 +297,7 @@ export default function Home() {
               </ul>
             </Reveal>
             <Reveal delay={0.15}>
-              <div className="relative rounded-3xl bg-gradient-to-br from-primary to-primary-800 p-10 text-white shadow-2xl shadow-primary/20">
-                <div className="pointer-events-none absolute -top-10 -right-10 h-40 w-40 rounded-full bg-accent/30 blur-3xl" />
-                <img src="/logo-icon.png" alt="" className="h-16 w-16" width={64} height={64} />
-                <blockquote className="mt-6 text-lg leading-relaxed">
-                  "RAAH Technologies has demonstrated its commitment to excellence in the field,
-                  investing heavily in Okta skills to deliver successful customer projects across
-                  regions."
-                </blockquote>
-                <p className="mt-4 text-sm font-semibold text-accent">
-                  — Okta, AMER SI Partner of the Year 2024
-                </p>
-              </div>
+              <TestimonialSlider />
             </Reveal>
           </div>
         </div>

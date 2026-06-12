@@ -3,8 +3,10 @@ import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import Icon from '../components/Icon'
+import IdentityOrbit from '../components/IdentityOrbit'
 import PageHero from '../components/PageHero'
 import Reveal from '../components/Reveal'
+import TiltCard from '../components/TiltCard'
 import { solutions } from '../data/solutions'
 
 function slugFromHash(hash: string) {
@@ -38,6 +40,11 @@ export default function Solutions() {
 
       <section className="py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Identity orbit — every solution revolves around identity */}
+          <Reveal className="mb-14 flex justify-center">
+            <IdentityOrbit active={active} onSelect={select} />
+          </Reveal>
+
           {/* Solution selector */}
           <Reveal
             className="flex flex-wrap justify-center gap-3"
@@ -105,14 +112,15 @@ export default function Solutions() {
                     initial={{ opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.08 + i * 0.06 }}
-                    className="flex min-w-0 items-start gap-4 rounded-2xl border border-primary/10 bg-white p-5 shadow-sm transition-shadow hover:shadow-lg hover:shadow-primary/8 dark:border-white/10 dark:bg-primary-800/60"
                   >
-                    <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                      <Icon name={c.icon} className="h-5 w-5" />
-                    </span>
-                    <p className="min-w-0 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-                      {c.text}
-                    </p>
+                    <TiltCard className="flex h-full min-w-0 items-start gap-4 rounded-2xl border border-primary/10 bg-white p-5 shadow-sm hover:shadow-lg hover:shadow-primary/8 dark:border-white/10 dark:bg-primary-800/60">
+                      <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                        <Icon name={c.icon} className="h-5 w-5" />
+                      </span>
+                      <p className="min-w-0 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                        {c.text}
+                      </p>
+                    </TiltCard>
                   </motion.div>
                 ))}
               </div>

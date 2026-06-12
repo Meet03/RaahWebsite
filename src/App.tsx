@@ -1,7 +1,9 @@
 import { Suspense, lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
+import { motion, useScroll } from 'framer-motion'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import BackToTop from './components/BackToTop'
 import ScrollToTop from './components/ScrollToTop'
 import { useTheme } from './hooks/useTheme'
 import Home from './pages/Home'
@@ -25,10 +27,16 @@ function PageLoader() {
 
 export default function App() {
   const { theme, toggleTheme, palette, setPalette } = useTheme()
+  const { scrollYProgress } = useScroll()
 
   return (
     <div className="flex min-h-screen flex-col">
       <ScrollToTop />
+      <motion.div
+        style={{ scaleX: scrollYProgress }}
+        className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-accent"
+        aria-hidden="true"
+      />
       <Navbar theme={theme} toggleTheme={toggleTheme} palette={palette} setPalette={setPalette} />
       <main className="flex-1">
         <Suspense fallback={<PageLoader />}>
@@ -46,6 +54,7 @@ export default function App() {
           </Routes>
         </Suspense>
       </main>
+      <BackToTop />
       <Footer />
     </div>
   )

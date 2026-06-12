@@ -60,9 +60,9 @@ export default function Navbar({ theme, toggleTheme, palette, setPalette }: Navb
           <img
             src={overDark || theme === 'dark' ? '/logo-white.png' : '/logo-color.png'}
             alt="RAAH Technologies"
-            className="h-10 w-auto"
-            width={178}
-            height={40}
+            className="h-12 w-auto"
+            width={135}
+            height={48}
           />
         </Link>
 
